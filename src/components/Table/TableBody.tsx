@@ -33,7 +33,7 @@ const TableBody = ({ lists, tableColumnLabels }: TableBodyProps) => {
         <td className="px-3 py-4">{list.createdAt}</td>
         <td className="px-3 py-4 flex flex-row items-center justify-center gap-2">
          <Button varients="warning" label="edit" onClick={() => {}} />
-         <Button label="delete" onClick={() => {}} />
+         <Button varients="danger" label="delete" onClick={() => {}} />
         </td>
        </tr>
       ))}

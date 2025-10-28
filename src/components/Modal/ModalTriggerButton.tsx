@@ -13,14 +13,14 @@ const ModalTriggerButton = ({ varient = "primary" }: Props) => {
   <>
    <Button
     varients={varient}
-    label="Click me"
+    label="Add New List"
     onClick={() => setIsOpen(true)}
    />
 
    <ModalContainer isOpen={isOpen} onClose={() => setIsOpen(false)}>
-    <ModalContainer.ModalHeader> Modal header</ModalContainer.ModalHeader>
+    <ModalContainer.ModalHeader>Modal header</ModalContainer.ModalHeader>
 
-    <ModalContainer.ModalBody> Modal header</ModalContainer.ModalBody>
+    <ModalContainer.ModalBody>Modal Body</ModalContainer.ModalBody>
    </ModalContainer>
   </>
  );
@@ -28,4 +28,4 @@ const ModalTriggerButton = ({ varient = "primary" }: Props) => {
 
 export default ModalTriggerButton;
 
-export type ModalTriggerButtonVarients = "primary" | "warning";
+export type ModalTriggerButtonVarients = "primary" | "warning" | "danger";
