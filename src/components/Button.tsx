@@ -30,6 +30,10 @@ const varientMapping: Record<ModalTriggerButtonVarients, { style: string }> = {
  },
  warning: {
   style:
-   "text-yellow-500 hover:text-black font-semibold hover:bg-yellow-400/50 transition-colors cursor-pointer p-2 rounded-xl text-white",
+   "text-yellow-500 hover:text-black font-semibold hover:bg-yellow-400/50 transition-colors cursor-pointer p-2 rounded-xl",
+ },
+ danger: {
+  style:
+   "text-red-500 hover:text-white font-semibold hover:bg-red-400/80 transition-colors cursor-pointer p-2 rounded-xl",
  },
 };
