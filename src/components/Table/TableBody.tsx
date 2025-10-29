@@ -31,7 +31,11 @@ const TableBody = ({ lists }: Props) => {
      <thead className="bg-gray-100 uppercase">
       <tr>
        {tableColumns.map((label, index) => (
-        <th scope="col" className="px-6 py-3 max-w-24" key={index}>
+        <th
+         scope="col"
+         className={`${label === "subtitle" ? "px-6" : "px-3"} py-3 max-w-24`}
+         key={index}
+        >
          <span className="flex flex-row gap-1 items-center justify-center group">
           {label}
 
