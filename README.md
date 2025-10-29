@@ -1,75 +1,110 @@
-# React + TypeScript + Vite
+# 📝 List Management
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A lightweight and minimal **React-based list management app** that lets you **create, edit, delete, and sort** your lists with a clean UI and responsive design.  
+Built purely with React (no backend) and powered by **Zustand**, **React Hook Form**, and **TailwindCSS**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features
 
-## React Compiler
+- ➕ Add any kind of list item
+- ✏️ Edit or delete existing items
+- 📅 Sort lists by creation date
+- ⚡ Real-time updates using Zustand store
+- 🎨 Clean UI with TailwindCSS
+- 🔥 Toast notifications for actions
+- 🧩 Modular structure using **subcomponent strategy**
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+---
 
-Note: This will impact Vite dev & build performances.
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+- **React 19**
+- **Vite**
+- **TypeScript**
+- **TailwindCSS**
+- **Zustand** (for state management)
+- **React Hook Form** + **Zod** (for validation)
+- **Motion** (for animations)
+- **React Icons** + **React Hot Toast**
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 📦 Installation & Setup
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```bash
+# Clone the repository
+git clone https://github.com/Deviel-Y/ListManagement.git
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Navigate into the project directory
+cd ListManagement
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
+
+
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+🖥️ Local Development
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Your app will be running at:  
+👉 **http://localhost:5173**
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+## 📁 Project Structure
+
+src/
+├── components/ # All React components
+│ ├── Table/ # Table UI + subcomponents
+│ ├── Modal/ # Modal UI + subcomponents
+│ └── ...
+│
+├── utils/ # Reusable utility functions
+├── libs/ # Library-related functions
+└── store/ # Zustand store
+
+Each component directory follows a **subcomponent strategy** for cleaner organization and reusability.
+
+---
+
+## 🧠 How It Works
+
+- The app uses **Zustand** for managing list states globally.
+- **React Hook Form** and **Zod** handle form validation.
+- Each list item stores a **title**, **subtitle**, and **creation date**.
+- Lists can be **sorted by date** dynamically.
+
+---
+
+## 🧩 Scripts
+
+| Command           | Description                          |
+| ----------------- | ------------------------------------ |
+| `npm run dev`     | Run the project in development mode  |
+| `npm run build`   | Build the project for production     |
+| `npm run lint`    | Run ESLint for code quality          |
+| `npm run preview` | Preview the production build locally |
+
+---
+
+## 🧰 Dependencies
+
+See the full list in **`package.json`**.  
+Main ones include:
+
+---
+
+## 🪪 License
+
+This project is released under the **MIT License**.
+
+---
+
+## 👨‍💻 Author
+
+**Daniel (Deviel-Y)**  
+[GitHub Profile](https://github.com/Deviel-Y)
