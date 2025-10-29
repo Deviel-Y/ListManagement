@@ -1,49 +1,60 @@
+import useListStore from "../../store";
 import Button from "../Button";
+import ModalTriggerButton from "../Modal/ModalTriggerButton";
 
-export type ListType = { createdAt: string; title: string; subtitle: string };
+const TableBody = () => {
+  const lists = useListStore((s) => s.lists);
+  const deleteList = useListStore((s) => s.deleteList);
 
-interface TableBodyProps {
- lists: ListType[];
- tableColumnLabels: string[];
-}
+  return (
+    <div className="overflow-hidden rounded-bl-xl rounded-br-xl w-full ">
+      {lists.length ? (
+        <table className="text-sm text-center w-full">
+          <thead className="bg-gray-100 uppercase">
+            <tr>
+              {tableColumns.map((label, index) => (
+                <th scope="col" className="px-6 py-3 max-w-24" key={index}>
+                  {label}
+                </th>
+              ))}
+            </tr>
+          </thead>
 
-const TableBody = ({ lists, tableColumnLabels }: TableBodyProps) => {
- return (
-  <div className="overflow-hidden rounded-bl-xl rounded-br-xl w-full ">
-   {lists.length ? (
-    <table className="text-sm text-center w-full">
-     <thead className="bg-gray-100 uppercase">
-      <tr>
-       {tableColumnLabels.map((label, index) => (
-        <th scope="col" className="px-6 py-3 max-w-24" key={index}>
-         {label}
-        </th>
-       ))}
-      </tr>
-     </thead>
+          <tbody>
+            {lists.map((list) => (
+              <tr
+                key={list.title}
+                className="odd:bg-white even:bg-gray-50 border border-gray-100"
+              >
+                <td className="px-3 py-4">{list.title}</td>
+                <td className="px-3 py-4">{list.subtitle}</td>
+                <td className="px-3 py-4">{list.createdAt}</td>
+                <td className="px-3 py-4 flex flex-row items-center justify-center gap-2">
+                  <ModalTriggerButton 
+                    varient="warning"
+                    buttonLabel="Edit"
+                    listToEdit={list}
+                  />
 
-     <tbody>
-      {lists.map((list) => (
-       <tr
-        key={list.title}
-        className="odd:bg-white even:bg-gray-50 border border-gray-100"
-       >
-        <td className="px-3 py-4">{list.title}</td>
-        <td className="px-3 py-4">{list.subtitle}</td>
-        <td className="px-3 py-4">{list.createdAt}</td>
-        <td className="px-3 py-4 flex flex-row items-center justify-center gap-2">
-         <Button varients="warning" label="edit" onClick={() => {}} />
-         <Button varients="danger" label="delete" onClick={() => {}} />
-        </td>
-       </tr>
-      ))}
-     </tbody>
-    </table>
-   ) : (
-    <p>No content To Show...</p>
-   )}
-  </div>
- );
+                  <Button
+                    varients="danger"
+                    label="delete"
+                    onClick={() => deleteList(list.title)}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p className="flex flex-row justify-center items-center h-48 font-bold ">
+          No content To Show...
+        </p>
+      )}
+    </div>
+  );
 };
+
+const tableColumns: string[] = ["title", "subtitle", "created At", "Action"];
 
 export default TableBody;
