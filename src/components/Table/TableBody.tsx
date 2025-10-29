@@ -1,8 +1,13 @@
-import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
+import {
+ HiOutlineEye,
+ HiOutlinePencilAlt,
+ HiOutlineTrash,
+} from "react-icons/hi";
 import useListStore, { type ListType } from "../../store";
 import { truncateText } from "../../utils/truncateText";
 import Button from "../Button";
 import ModalTriggerButton from "../Modal/ModalTriggerButton";
+import ShowListDetailTriggerButton from "../Modal/ShowListDetailTriggerButton";
 
 interface Props {
  lists: ListType[];
@@ -45,6 +50,12 @@ const TableBody = ({ lists }: Props) => {
           varients="danger"
           label={<HiOutlineTrash size={25} />}
           onClick={() => deleteList(list.title)}
+         />
+
+         <ShowListDetailTriggerButton
+          varient="primary-outline"
+          buttonLabel={<HiOutlineEye size={25} />}
+          listToShow={list}
          />
         </td>
        </tr>
