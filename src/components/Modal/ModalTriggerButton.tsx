@@ -31,7 +31,7 @@ const ModalTriggerButton = ({
         </ModalContainer.ModalHeader>
 
         <ModalContainer.ModalBody>
-          <Form listToEdit={listToEdit} />
+          <Form listToEdit={listToEdit} onClose={() => setIsOpen(false)} />
         </ModalContainer.ModalBody>
       </ModalContainer>
     </>
