@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { FaSort } from "react-icons/fa";
 import {
  HiOutlineEye,
  HiOutlinePencilAlt,
@@ -13,25 +15,42 @@ interface Props {
  lists: ListType[];
 }
 const TableBody = ({ lists }: Props) => {
- //   const lists = useListStore((s) => s.lists);
+ const [isReversed, setIsReversed] = useState(false);
  const deleteList = useListStore((s) => s.deleteList);
 
+ const displayedLists = isReversed ? [...lists].reverse() : lists;
+
+ const handleSortClick = () => {
+  setIsReversed((prev) => !prev);
+ };
+
  return (
-  <div className="overflow-hidden rounded-bl-xl rounded-br-xl w-full ">
+  <div className="overflow-hidden rounded-bl-xl rounded-br-xl w-full select-none">
    {lists.length ? (
     <table className="text-sm text-center w-full">
      <thead className="bg-gray-100 uppercase">
       <tr>
        {tableColumns.map((label, index) => (
         <th scope="col" className="px-6 py-3 max-w-24" key={index}>
-         {label}
+         <span className="flex flex-row gap-1 items-center justify-center group">
+          {label}
+
+          {label === "created At" && (
+           <span onClick={handleSortClick} className="w-fit">
+            <FaSort
+             className="text-gray-400 opacity-0 group-hover:opacity-100 group-hover:cursor-pointer transition-all"
+             size={15}
+            />
+           </span>
+          )}
+         </span>
         </th>
        ))}
       </tr>
      </thead>
 
      <tbody>
-      {lists.map((list) => (
+      {displayedLists.map((list) => (
        <tr
         key={list.title}
         className="odd:bg-white even:bg-gray-50 border border-gray-100"
