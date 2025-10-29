@@ -1,39 +1,50 @@
 import { create } from "zustand";
 
-export type ListType = { createdAt: string; title: string; subtitle: string };
+// Type definition for a single list item
+export type ListType = {
+ createdAt: string; // ISO date string when the list item was created
+ title: string; // Title of the list item
+ subtitle: string; // Optional subtitle or description
+};
 
+// Type definition for the Zustand store
 interface ListStoreType {
-  lists: ListType[];
-  addToList: (list: ListType) => void;
-  deleteList: (title: string) => void;
-  editList: (currentList: ListType) => void;
+ lists: ListType[]; // Array of all list items
+ addToList: (list: ListType) => void; // Function to add a new list item
+ deleteList: (title: string) => void; // Function to delete a list item by title
+ editList: (currentList: ListType) => void; // Function to edit an existing list item
 }
 
+// Zustand store for managing list state
 const useListStore = create<ListStoreType>((set) => ({
-  lists: [],
+ lists: [], // Initial state: empty list array
 
-  addToList: (newList) =>
-    set((state) => ({
-      lists: [...state.lists, newList],
-    })),
+ // Adds a new list item to the store
+ addToList: (newList) =>
+  set((state) => ({
+   lists: [...state.lists, newList], // Append the new item to existing lists
+  })),
 
-  deleteList: (title) =>
-    set((state) => ({
-      lists: state.lists.filter((list) => list.title !== title),
-    })),
+ // Deletes a list item based on its title
+ deleteList: (title) =>
+  set((state) => ({
+   lists: state.lists.filter((list) => list.title !== title), // Remove matching title
+  })),
 
-  editList: (currentList) =>
-    set((state) => ({
-      lists: state.lists.map((list) =>
-        list.createdAt === currentList.createdAt
-          ? {
-              ...list,
-              title: currentList.title,
-              subtitle: currentList.subtitle,
-            }
-          : list
-      ),
-    })),
+ // Edits an existing list item by matching its createdAt timestamp
+ editList: (currentList) =>
+  set((state) => ({
+   lists: state.lists.map(
+    (list) =>
+     list.createdAt === currentList.createdAt
+      ? {
+         ...list,
+         title: currentList.title, // Update title
+         subtitle: currentList.subtitle, // Update subtitle
+        }
+      : list // Keep unchanged items
+   ),
+  })),
 }));
 
 export default useListStore;

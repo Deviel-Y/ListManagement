@@ -1,3 +1,4 @@
+// Truncates text to prevent it from being displayed in full.
 export const truncateText = (text: string): string => {
  const limit: number = 50;
 

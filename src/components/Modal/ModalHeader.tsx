@@ -6,6 +6,8 @@ interface ModalHeaderProp {
 }
 
 const ModalHeader = ({ children, className }: ModalHeaderProp) => {
+ // For reusability, responsibility of both child and style are on parent
+ // And note that ModalHeader is subComponent of ModalContainer component
  return <p className={className}>{children}</p>;
 };
 

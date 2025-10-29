@@ -3,9 +3,10 @@ import TableContainer from "./components/Table/TableContainer";
 import useListStore from "./store";
 
 function App() {
- const lists = useListStore((s) => s.lists);
+ const lists = useListStore((s) => s.lists); //Zustand store
 
  return (
+  // TableTitle, TableTopContent, and TableBody are designed as **subcomponents** of the main Table container.
   <main className="h-dvh flex flex-col items-center max-sm:mx-1 justify-center">
    <TableContainer className="rounded-xl border border-gray-400 w-2/3 max-sm:w-full max-md:w-4/5 flex flex-col items-start justify-center">
     <TableContainer.TableTitle
