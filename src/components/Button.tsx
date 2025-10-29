@@ -38,14 +38,14 @@ export default Button;
 
 const varientMapping: Record<ModalTriggerButtonVarients, { style: string }> = {
   primary: {
-    style: "bg-blue-600 hover:bg-blue-700 px-5 py-1.5 text-white",
+    style: "bg-blue-600 hover:bg-blue-700 px-4 py-1 text-white",
   },
   warning: {
     style:
-      "text-yellow-500 hover:text-black font-semibold hover:bg-yellow-400/50 p-2",
+      "text-yellow-500 hover:text-yellow-600 font-semibold hover:bg-yellow-400/60 p-2",
   },
   danger: {
     style:
-      "text-red-500 hover:text-white font-semibold hover:bg-red-400/80 p-2",
+      "text-red-500 hover:text-red-600 font-semibold hover:bg-red-400/60 p-2",
   },
 };

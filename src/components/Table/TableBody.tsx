@@ -1,3 +1,4 @@
+import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
 import useListStore from "../../store";
 import Button from "../Button";
 import ModalTriggerButton from "../Modal/ModalTriggerButton";
@@ -30,15 +31,15 @@ const TableBody = () => {
                 <td className="px-3 py-4">{list.subtitle}</td>
                 <td className="px-3 py-4">{list.createdAt}</td>
                 <td className="px-3 py-4 flex flex-row items-center justify-center gap-2">
-                  <ModalTriggerButton 
+                  <ModalTriggerButton
                     varient="warning"
-                    buttonLabel="Edit"
+                    buttonLabel={<HiOutlinePencilAlt size={25} />}
                     listToEdit={list}
                   />
 
                   <Button
                     varients="danger"
-                    label="delete"
+                    label={<HiOutlineTrash size={25} />}
                     onClick={() => deleteList(list.title)}
                   />
                 </td>
