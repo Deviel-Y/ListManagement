@@ -2,11 +2,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence } from "motion/react";
 import { Controller, useForm } from "react-hook-form";
 import { listSchema, type ListSchemaType } from "../lib/validationSchemas";
+import type { ListType } from "../store";
+import useListStore from "../store";
 import Button from "./Button";
 import FormErrorMessage from "./FormErrorMessage";
 import Input from "./Input";
 
-const Form = () => {
+interface Props {
+  listToEdit?: ListType;
+}
+
+const Form = ({ listToEdit }: Props) => {
+  const addToList = useListStore((s) => s.addToList);
+  const editList = useListStore((s) => s.editList);
+
   const {
     control,
     handleSubmit,
@@ -18,16 +27,27 @@ const Form = () => {
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        console.log(data);
+        listToEdit
+          ? editList({
+              createdAt: listToEdit.createdAt,
+              subtitle: data.subtitle,
+              title: data.title,
+            })
+          : addToList({ ...data, createdAt: new Date().toString() });
       })}
       className="flex flex-col gap-5"
     >
       <div className="flex flex-col gap-1 ">
         <Controller
+          defaultValue={listToEdit?.title}
           control={control}
           name="title"
           render={({ field: { onChange } }) => (
-            <Input label="Title" onChange={onChange} />
+            <Input
+              defaultValue={listToEdit?.title}
+              label="Title"
+              onChange={onChange}
+            />
           )}
         />
 
@@ -40,10 +60,15 @@ const Form = () => {
 
       <div className="flex flex-col gap-1">
         <Controller
+          defaultValue={listToEdit?.subtitle}
           control={control}
           name="subtitle"
           render={({ field: { onChange } }) => (
-            <Input label="Subtitle" onChange={onChange} />
+            <Input
+              defaultValue={listToEdit?.subtitle}
+              label="Subtitle"
+              onChange={onChange}
+            />
           )}
         />
 
@@ -56,7 +81,10 @@ const Form = () => {
         </AnimatePresence>
       </div>
 
-      <Button label="Create new list" type="submit" />
+      <Button
+        label={listToEdit ? "Edit list" : "Create new list"}
+        type="submit"
+      />
     </form>
   );
 };
