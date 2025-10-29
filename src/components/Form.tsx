@@ -1,6 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AnimatePresence } from "motion/react";
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { listSchema, type ListSchemaType } from "../lib/validationSchemas";
 import type { ListType } from "../store";
 import useListStore from "../store";
@@ -10,11 +12,16 @@ import Input from "./Input";
 
 interface Props {
   listToEdit?: ListType;
+  onClose: (modalState: boolean) => void;
 }
 
-const Form = ({ listToEdit }: Props) => {
+const Form = ({ listToEdit, onClose }: Props) => {
+  const [isDisable, setIsDisable] = useState<boolean>(false);
   const addToList = useListStore((s) => s.addToList);
   const editList = useListStore((s) => s.editList);
+
+  const fakeApiCall = <T,>(data: T, delay = 1000): Promise<T> =>
+    new Promise((resolve) => setTimeout(() => resolve(data), delay));
 
   const {
     control,
@@ -27,13 +34,45 @@ const Form = ({ listToEdit }: Props) => {
   return (
     <form
       onSubmit={handleSubmit((data) => {
-        listToEdit
-          ? editList({
-              createdAt: listToEdit.createdAt,
-              subtitle: data.subtitle,
-              title: data.title,
+        setIsDisable(true);
+
+        if (listToEdit) {
+          const updatedList = fakeApiCall<
+            ListSchemaType & { createdAt: string }
+          >({
+            createdAt: listToEdit.createdAt,
+            title: data.title,
+            subtitle: data.subtitle,
+          });
+
+          return toast
+            .promise(updatedList, {
+              loading: "Editting...",
+              error: "Couldn't edit the list",
+              success: "Successfully editted",
             })
-          : addToList({ ...data, createdAt: new Date().toString() });
+            .then((res) => {
+              editList(res);
+              onClose(false);
+            })
+            .finally(() => setIsDisable(false));
+        }
+
+        const newList = fakeApiCall<ListSchemaType & { createdAt: string }>({
+          ...data,
+          createdAt: new Date().toLocaleString(),
+        });
+        toast
+          .promise(newList, {
+            loading: "Creating...",
+            error: "Couldn't create the list",
+            success: "Successfully created",
+          })
+          .then((res) => {
+            addToList(res);
+            onClose(false);
+          })
+          .finally(() => setIsDisable(false));
       })}
       className="flex flex-col gap-5"
     >
@@ -82,6 +121,7 @@ const Form = ({ listToEdit }: Props) => {
       </div>
 
       <Button
+        disable={isDisable}
         label={listToEdit ? "Edit list" : "Create new list"}
         type="submit"
       />
