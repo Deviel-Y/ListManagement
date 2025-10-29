@@ -5,9 +5,12 @@ function App() {
   return (
     <main className="h-dvh flex flex-col items-center justify-center">
       <TableContainer>
-        <TableContainer.TableTitle label="List management" />
+        <TableContainer.TableTitle
+          className="w-full text-center mt-2 text-2xl"
+          label="List management"
+        />
 
-        <TableContainer.TableTopContent>
+        <TableContainer.TableTopContent className="p-2">
           <ModalTriggerButton buttonLabel="Create new list" varient="primary" />
         </TableContainer.TableTopContent>
 
