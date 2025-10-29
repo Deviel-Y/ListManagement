@@ -63,7 +63,7 @@ const TableBody = ({ lists }: Props) => {
      </tbody>
     </table>
    ) : (
-    <p className="flex flex-row justify-center items-center h-48 font-bold ">
+    <p className="flex flex-row justify-center items-center h-48 font-bold border-t border-gray-300">
      No content To Show...
     </p>
    )}
