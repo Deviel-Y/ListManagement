@@ -1,10 +1,12 @@
 import type { FC, ReactNode } from "react";
+import type { ListType } from "../../store";
 import TableBody from "./TableBody";
 import TableTitle from "./TableTitle";
 import TableTopContent from "./TableTopContent";
 
 interface TableProps {
   children: ReactNode;
+  className?: string;
 }
 
 type TableContainerComponent = FC<TableProps> & {
@@ -13,17 +15,13 @@ type TableContainerComponent = FC<TableProps> & {
     className?: string;
   }>;
 
-  TableBody: FC;
+  TableBody: FC<{ lists: ListType[] }>;
 
   TableTopContent: FC<{ children: ReactNode; className?: string }>;
 };
 
-const TableContainer: TableContainerComponent = ({ children }) => {
-  return (
-    <div className="rounded-xl border border-gray-400 w-1/2 flex flex-col items-start justify-center">
-      {children}
-    </div>
-  );
+const TableContainer: TableContainerComponent = ({ children, className }) => {
+  return <div className={className}>{children}</div>;
 };
 
 export default TableContainer;

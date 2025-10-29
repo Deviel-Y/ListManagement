@@ -1,10 +1,13 @@
 import { HiOutlinePencilAlt, HiOutlineTrash } from "react-icons/hi";
-import useListStore from "../../store";
+import useListStore, { type ListType } from "../../store";
 import Button from "../Button";
 import ModalTriggerButton from "../Modal/ModalTriggerButton";
 
-const TableBody = () => {
-  const lists = useListStore((s) => s.lists);
+interface Props {
+  lists: ListType[];
+}
+const TableBody = ({ lists }: Props) => {
+  //   const lists = useListStore((s) => s.lists);
   const deleteList = useListStore((s) => s.deleteList);
 
   return (
