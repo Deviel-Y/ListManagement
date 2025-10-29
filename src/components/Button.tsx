@@ -7,9 +7,11 @@ interface ButtonProps {
   onClick?: () => void;
   varients?: ModalTriggerButtonVarients;
   type?: "submit" | "button";
+  disable?: boolean;
 }
 
 const Button = ({
+  disable,
   label,
   onClick,
   varients = "primary",
@@ -17,8 +19,11 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <motion.button
+      disabled={disable}
       type={type}
-      className={varientMapping[varients!].style}
+      className={`${
+        varientMapping[varients!].style
+      } transition-colors cursor-pointer rounded-xl disabled:bg-gray-400 disabled:text-white`}
       onClick={onClick}
       initial={{ scale: 1 }}
       whileTap={{ scale: 0.95 }}
@@ -33,15 +38,14 @@ export default Button;
 
 const varientMapping: Record<ModalTriggerButtonVarients, { style: string }> = {
   primary: {
-    style:
-      "bg-blue-600 hover:bg-blue-700 transition-colors cursor-pointer px-5 py-1.5 rounded-xl text-white",
+    style: "bg-blue-600 hover:bg-blue-700 px-5 py-1.5 text-white",
   },
   warning: {
     style:
-      "text-yellow-500 hover:text-black font-semibold hover:bg-yellow-400/50 transition-colors cursor-pointer p-2 rounded-xl",
+      "text-yellow-500 hover:text-black font-semibold hover:bg-yellow-400/50 p-2",
   },
   danger: {
     style:
-      "text-red-500 hover:text-white font-semibold hover:bg-red-400/80 transition-colors cursor-pointer p-2 rounded-xl",
+      "text-red-500 hover:text-white font-semibold hover:bg-red-400/80 p-2",
   },
 };
