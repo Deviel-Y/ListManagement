@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 interface Props {
   label: string;
-  onChange: () => void;
+  onChange: (value: string) => void;
 }
 
 const Input = ({ label, onChange }: Props) => {
@@ -12,13 +12,19 @@ const Input = ({ label, onChange }: Props) => {
     <div className="w-full max-w-sm min-w-[200px]">
       <div className="relative">
         <input
-          onChange={onChange}
           ref={ref}
-          className="peer w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
+          onChange={(event) => onChange(event.target.value)}
+          className="peer w-full bg-transparent placeholder-transparent text-slate-700 text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-slate-400 hover:border-slate-300 shadow-sm focus:shadow"
         />
         <label
           onClick={() => ref.current?.focus()}
-          className="absolute cursor-text bg-white px-1 left-2.5 top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-focus:-top-2 peer-focus:left-2.5 peer-focus:text-xs peer-focus:text-slate-400 peer-focus:scale-90"
+          className={`absolute ${
+            ref.current?.value
+              ? "left-2.5 -top-2.5 text-xs"
+              : "left-2.5 top-2.5"
+          } bg-white px-1 text-slate-400 text-sm transition-all duration-200
+          peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-placeholder-shown:text-slate-400
+          peer-focus:-top-2 peer-focus:text-slate-400 peer-focus:scale-90`}
         >
           {label}
         </label>
